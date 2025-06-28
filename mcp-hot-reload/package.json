@@ -1,0 +1,215 @@
+{
+    "name": "mcp-hot-reload",
+    "version": "1.0.0",
+    "description": "A powerful development tool that brings hot reloading and live management to Model Context Protocol (MCP) servers",
+    "main": "mcp-hot-reload.js",
+    "bin": {
+      "mcp-hot-reload": "./bin/cli.js",
+      "mcp": "./bin/cli.js"
+    },
+    "scripts": {
+      "start": "node mcp-hot-reload.js",
+      "dev": "nodemon mcp-hot-reload.js",
+      "test": "jest",
+      "test:watch": "jest --watch",
+      "test:coverage": "jest --coverage",
+      "lint": "eslint .",
+      "lint:fix": "eslint . --fix",
+      "format": "prettier --write .",
+      "format:check": "prettier --check .",
+      "build": "npm run lint && npm run test",
+      "prepare": "npm run build",
+      "docs": "jsdoc -c jsdoc.config.json",
+      "clean": "rm -rf node_modules package-lock.json && npm install",
+      "docker:build": "docker build -t mcp-hot-reload .",
+      "docker:run": "docker run -p 3001:3001 -v ~/.config/claude-desktop:/config mcp-hot-reload"
+    },
+    "keywords": [
+      "mcp",
+      "model-context-protocol",
+      "hot-reload",
+      "development-tools",
+      "claude",
+      "anthropic",
+      "server-management",
+      "process-manager",
+      "file-watcher",
+      "developer-experience",
+      "nodejs",
+      "web-interface",
+      "cli-tool",
+      "devtools"
+    ],
+    "author": {
+      "name": "Your Name",
+      "email": "your.email@example.com",
+      "url": "https://github.com/yourusername"
+    },
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/yourusername/mcp-hot-reload.git"
+    },
+    "bugs": {
+      "url": "https://github.com/yourusername/mcp-hot-reload/issues"
+    },
+    "homepage": "https://github.com/yourusername/mcp-hot-reload#readme",
+    "engines": {
+      "node": ">=16.0.0",
+      "npm": ">=7.0.0"
+    },
+    "dependencies": {
+      "chokidar": "^3.5.3",
+      "express": "^4.18.2",
+      "cors": "^2.8.5",
+      "helmet": "^7.1.0",
+      "compression": "^1.7.4",
+      "morgan": "^1.10.0",
+      "ws": "^8.14.2",
+      "chalk": "^4.1.2",
+      "commander": "^11.1.0",
+      "inquirer": "^8.2.6",
+      "ora": "^5.4.1",
+      "boxen": "^5.1.2",
+      "update-notifier": "^6.0.2"
+    },
+    "devDependencies": {
+      "nodemon": "^3.0.2",
+      "jest": "^29.7.0",
+      "supertest": "^6.3.3",
+      "eslint": "^8.55.0",
+      "eslint-config-airbnb-base": "^15.0.0",
+      "eslint-plugin-import": "^2.29.0",
+      "eslint-plugin-jest": "^27.6.0",
+      "prettier": "^3.1.1",
+      "jsdoc": "^4.0.2",
+      "husky": "^8.0.3",
+      "lint-staged": "^15.2.0",
+      "@types/node": "^20.10.5",
+      "cross-env": "^7.0.3"
+    },
+    "optionalDependencies": {
+      "fsevents": "^2.3.3"
+    },
+    "peerDependencies": {
+      "claude-desktop": "*"
+    },
+    "peerDependenciesMeta": {
+      "claude-desktop": {
+        "optional": true
+      }
+    },
+    "files": [
+      "mcp-hot-reload.js",
+      "bin/",
+      "public/",
+      "lib/",
+      "docs/",
+      "examples/",
+      "README.md",
+      "LICENSE",
+      "CHANGELOG.md"
+    ],
+    "directories": {
+      "bin": "./bin",
+      "doc": "./docs",
+      "example": "./examples",
+      "lib": "./lib",
+      "test": "./tests"
+    },
+    "config": {
+      "port": 3001,
+      "configPath": "~/.config/claude-desktop/claude_desktop_config.json"
+    },
+    "jest": {
+      "testEnvironment": "node",
+      "collectCoverageFrom": [
+        "*.js",
+        "lib/**/*.js",
+        "!node_modules/**",
+        "!tests/**",
+        "!coverage/**"
+      ],
+      "coverageDirectory": "coverage",
+      "coverageReporters": [
+        "text",
+        "lcov",
+        "html"
+      ],
+      "testMatch": [
+        "**/tests/**/*.test.js",
+        "**/__tests__/**/*.js"
+      ]
+    },
+    "eslintConfig": {
+      "extends": [
+        "airbnb-base",
+        "plugin:jest/recommended"
+      ],
+      "env": {
+        "node": true,
+        "jest": true
+      },
+      "rules": {
+        "no-console": "off",
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": [
+              "**/*.test.js",
+              "**/*.spec.js",
+              "**/tests/**"
+            ]
+          }
+        ]
+      }
+    },
+    "prettier": {
+      "semi": true,
+      "trailingComma": "es5",
+      "singleQuote": true,
+      "printWidth": 80,
+      "tabWidth": 2,
+      "useTabs": false
+    },
+    "lint-staged": {
+      "*.js": [
+        "eslint --fix",
+        "prettier --write"
+      ],
+      "*.{json,md,yml,yaml}": [
+        "prettier --write"
+      ]
+    },
+    "husky": {
+      "hooks": {
+        "pre-commit": "lint-staged",
+        "pre-push": "npm run test"
+      }
+    },
+    "nodemonConfig": {
+      "watch": [
+        "*.js",
+        "lib/",
+        "public/"
+      ],
+      "ignore": [
+        "node_modules/",
+        "coverage/",
+        "logs/"
+      ],
+      "ext": "js,json",
+      "env": {
+        "NODE_ENV": "development",
+        "DEBUG": "mcp:*"
+      }
+    },
+    "funding": {
+      "type": "github",
+      "url": "https://github.com/sponsors/yourusername"
+    },
+    "publishConfig": {
+      "access": "public",
+      "registry": "https://registry.npmjs.org/"
+    }
+  }
